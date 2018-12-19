@@ -12,6 +12,9 @@ class Usuario {
 
     int cantidadIntentosAcceso
 
+    static hasMany = [tema: Tema]
+
+
     static constraints = {
 
 

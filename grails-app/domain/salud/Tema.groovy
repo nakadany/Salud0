@@ -4,9 +4,9 @@ class Tema {
 
     String titulo
 
-    Dolor dolor
-
     String descripcion
+
+    static hasOne = [dolor:Dolor, usuario: Usuario]
 
     static constraints = {
 

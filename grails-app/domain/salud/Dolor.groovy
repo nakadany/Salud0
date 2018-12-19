@@ -6,11 +6,15 @@ class Dolor {
 
     String lugarDolor
 
+    Tema tema
+
+
     static constraints = {
 
         nivelDolor inList: ['Leve', 'Moderado', 'Fuerte']
 
-        lugarDolor inList: ['Inferior: Cintura para abajo', 'Central: Cintura hasta cuello', 'Superior: Cuello y cabeza']
+        lugarDolor inList: ['Superior: cabeza', 'Medio: pecho, abdomen', 'Inferior: piernas, pies']
+
 
 
 

@@ -4,9 +4,9 @@ import grails.test.mixin.*
 import grails.validation.ValidationException
 import spock.lang.*
 
-@TestFor(UsuarioController)
-@Mock(Usuario)
-class UsuarioControllerSpec extends Specification {
+@TestFor(TemaController)
+@Mock(Tema)
+class TemaControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
@@ -18,7 +18,7 @@ class UsuarioControllerSpec extends Specification {
 
     void "Test the index action returns the correct model"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
+        controller.temaService = Mock(TemaService) {
             1 * list(_) >> []
             1 * count() >> 0
         }
@@ -27,8 +27,8 @@ class UsuarioControllerSpec extends Specification {
         controller.index()
 
         then:"The model is correct"
-        !model.usuarioList
-        model.usuarioCount == 0
+        !model.temaList
+        model.temaCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -36,7 +36,7 @@ class UsuarioControllerSpec extends Specification {
         controller.create()
 
         then:"The model is correctly created"
-        model.usuario!= null
+        model.tema!= null
     }
 
     void "Test the save action with a null instance"() {
@@ -46,14 +46,14 @@ class UsuarioControllerSpec extends Specification {
         controller.save(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/usuario/index'
+        response.redirectedUrl == '/tema/index'
         flash.message != null
     }
 
     void "Test the save action correctly persists"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
-            1 * save(_ as Usuario)
+        controller.temaService = Mock(TemaService) {
+            1 * save(_ as Tema)
         }
 
         when:"The save action is executed with a valid instance"
@@ -61,38 +61,38 @@ class UsuarioControllerSpec extends Specification {
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
         populateValidParams(params)
-        def usuario = new Usuario(params)
-        usuario.id = 1
+        def tema = new Tema(params)
+        tema.id = 1
 
-        controller.save(usuario)
+        controller.save(tema)
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/usuario/show/1'
+        response.redirectedUrl == '/tema/show/1'
         controller.flash.message != null
     }
 
     void "Test the save action with an invalid instance"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
-            1 * save(_ as Usuario) >> { Usuario usuario ->
-                throw new ValidationException("Invalid instance", usuario.errors)
+        controller.temaService = Mock(TemaService) {
+            1 * save(_ as Tema) >> { Tema tema ->
+                throw new ValidationException("Invalid instance", tema.errors)
             }
         }
 
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
-        def usuario = new Usuario()
-        controller.save(usuario)
+        def tema = new Tema()
+        controller.save(tema)
 
         then:"The create view is rendered again with the correct model"
-        model.usuario != null
+        model.tema != null
         view == 'create'
     }
 
     void "Test the show action with a null id"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
+        controller.temaService = Mock(TemaService) {
             1 * get(null) >> null
         }
 
@@ -105,20 +105,20 @@ class UsuarioControllerSpec extends Specification {
 
     void "Test the show action with a valid id"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
-            1 * get(2) >> new Usuario()
+        controller.temaService = Mock(TemaService) {
+            1 * get(2) >> new Tema()
         }
 
         when:"A domain instance is passed to the show action"
         controller.show(2)
 
         then:"A model is populated containing the domain instance"
-        model.usuario instanceof Usuario
+        model.tema instanceof Tema
     }
 
     void "Test the edit action with a null id"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
+        controller.temaService = Mock(TemaService) {
             1 * get(null) >> null
         }
 
@@ -131,15 +131,15 @@ class UsuarioControllerSpec extends Specification {
 
     void "Test the edit action with a valid id"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
-            1 * get(2) >> new Usuario()
+        controller.temaService = Mock(TemaService) {
+            1 * get(2) >> new Tema()
         }
 
         when:"A domain instance is passed to the show action"
         controller.edit(2)
 
         then:"A model is populated containing the domain instance"
-        model.usuario instanceof Usuario
+        model.tema instanceof Tema
     }
 
 
@@ -150,14 +150,14 @@ class UsuarioControllerSpec extends Specification {
         controller.update(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/usuario/index'
+        response.redirectedUrl == '/tema/index'
         flash.message != null
     }
 
     void "Test the update action correctly persists"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
-            1 * save(_ as Usuario)
+        controller.temaService = Mock(TemaService) {
+            1 * save(_ as Tema)
         }
 
         when:"The save action is executed with a valid instance"
@@ -165,31 +165,31 @@ class UsuarioControllerSpec extends Specification {
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
         populateValidParams(params)
-        def usuario = new Usuario(params)
-        usuario.id = 1
+        def tema = new Tema(params)
+        tema.id = 1
 
-        controller.update(usuario)
+        controller.update(tema)
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/usuario/show/1'
+        response.redirectedUrl == '/tema/show/1'
         controller.flash.message != null
     }
 
     void "Test the update action with an invalid instance"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
-            1 * save(_ as Usuario) >> { Usuario usuario ->
-                throw new ValidationException("Invalid instance", usuario.errors)
+        controller.temaService = Mock(TemaService) {
+            1 * save(_ as Tema) >> { Tema tema ->
+                throw new ValidationException("Invalid instance", tema.errors)
             }
         }
 
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
-        controller.update(new Usuario())
+        controller.update(new Tema())
 
         then:"The edit view is rendered again with the correct model"
-        model.usuario != null
+        model.tema != null
         view == 'edit'
     }
 
@@ -200,13 +200,13 @@ class UsuarioControllerSpec extends Specification {
         controller.delete(null)
 
         then:"A 404 is returned"
-        response.redirectedUrl == '/usuario/index'
+        response.redirectedUrl == '/tema/index'
         flash.message != null
     }
 
     void "Test the delete action with an instance"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
+        controller.temaService = Mock(TemaService) {
             1 * delete(2)
         }
 
@@ -216,7 +216,7 @@ class UsuarioControllerSpec extends Specification {
         controller.delete(2)
 
         then:"The user is redirected to index"
-        response.redirectedUrl == '/usuario/index'
+        response.redirectedUrl == '/tema/index'
         flash.message != null
     }
 }

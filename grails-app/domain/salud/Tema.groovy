@@ -10,8 +10,7 @@ class Tema {
 
     static constraints = {
 
-        titulo min: 5, max: 200
-        descripcion min: 50
+
 
 
     }

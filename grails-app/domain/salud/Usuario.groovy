@@ -4,6 +4,7 @@ class Usuario {
 
     String email
 
+
     String usuario
 
     String contraseña
